@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- AWP_In_Variable Name='"Block_2_DB".T1' -->
+<!-- AWP_Out_Variable Name='"Block_2_DB".KZ' -->
+<!-- AWP_Out_Variable Name='"Block_2_DB".KO' -->
+
+<!-- AWP_Out_Variable Name='"Block_2_DB".sAlarm_MZS' -->
+<!-- AWP_Out_Variable Name='"Block_2_DB".sAlarm_KOKZ' -->
+<!-- AWP_Out_Variable Name='"Block_2_DB".sAlarm_stuck' -->
+<!-- AWP_Out_Variable Name='"Block_2_DB".sAlarm_K1K2' -->
+
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style\GarageDoorPanelStyle.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta http-equiv="refresh" content="10;URL='https://192.168.7.1/awp/GarageDoorPanel.html">
+    <title>HMI</title>
+</head>
+
+<body>
+
+    <div id="wrapper" class="center">
+        <div id="panel">
+            <form method="POST" id="formT1">
+                <input type="button" value="T1" id="btnOpen" onclick="submitForm()" />
+                <input type="hidden" name='"Block_2_DB".T1' value="1" />
+            </form>
+
+            <div id="alarm">Alarm</div>
+        </div>
+
+        <div id="garageDoor">
+            <p id="doorStatus">Garage door:</p>
+            <img id="imgClosedDoor" src="img\ClosedDoor.png" alt="Closed door">
+            <img id="imgOpenDoor" src="img\FullyOpenDoor.png" alt="Open door">
+            <img id="imgPartiallyOpenDoor" src="img\PartiallyOpenDoor.png" alt="Partially open door">
+        </div>
+    </div>
+
+
+    <div id="footer">
+        <p id="goBackLink">
+            <a href="https://192.168.7.1/Portal/Portal.mwsl?intro_enter_button=ENTER&PriNav=Start&coming_from_intro=true">Go back</a>
+        </p>
+    </div>
+
+</body>
+
+
+
+<script>
+    var KZ = :="Block_2_DB".KZ:;
+    var KO = :="Block_2_DB".KO:;
+    var alarm = :="Block_2_DB".sAlarm_K1K2: || :="Block_2_DB".sAlarm_MZS: || :="Block_2_DB".sAlarm_KOKZ: || :="Block_2_DB".sAlarm_stuck:;
+
+    //on page load call updateData() function
+    window.onload = function() {
+        updateData();
+        console.log("pozvao sam");
+    }
+
+    //submitting form
+    function submitForm() {
+        var formOpn = document.getElementById("formT1");
+        formOpn.submit();
+    }
+
+
+    // updating data on page refresh
+    function updateData() {
+        console.log("KZ:" + KZ);
+        console.log("KO:" + KO);
+        console.log("Alarm: " + alarm);
+
+        const alarmDiv = document.getElementById("alarm");
+        const imgClosedDoor = document.getElementById("imgClosedDoor");
+        const imgOpenDoor = document.getElementById("imgOpenDoor");
+        const imgPartiallyOpenDoor = document.getElementById("imgPartiallyOpenDoor");
+        const doorStatus = document.getElementById("doorStatus");
+
+        if (alarm == true) {
+            alarmDiv.style.background = "red";
+            alarmDiv.classList.add("blink_me");
+        } else if (alarm == false) {
+            alarmDiv.style.background = "gray";
+            alarmDiv.classList.remove("blink_me");
+        }
+
+        if (KZ == 1) {
+            doorStatus.innerHTML = "Garage door: closed"
+            imgClosedDoor.style.display = 'block';
+        } else if (KO == 1) {
+            doorStatus.innerHTML = "Garage door: open"
+            imgOpenDoor.style.display = 'block';
+        } else if (KZ || KO == 0) {
+            doorStatus.innerHTML = "Garage door: opening/closing"
+            imgPartiallyOpenDoor.style.display = 'block';
+        }
+    }
+</script>
+
+</html>
