@@ -15,4 +15,4 @@ _User:_
 
 The goal of my thesis was to make this system and to test the cybersecurity aspect of the web server that is running on the PLC. 
 
-(documentation (in Croatian) comming soon)
+(documentation available comming soon)
