@@ -1,5 +1,4 @@
-# Garage door
-<b>Automatic Garage Door Control System with ability to control and manage over internet</b>
+# Automatic Garage Door Control System with ability to control and manage over internet
 
 This paper is based on making an automatic garage door system with a human-machine interface. Automatic control system was made using a PLC S7-1513-1 PN and TIA Portal and the code was written in LAD and SCL programming languages.
 Also, a human-machine interface was made using Visual Studio Code that enables controlling of the system and is uploaded to the PLC’s web server. Human-machine interface was programmed using HTML, CSS and JS programming languages.
